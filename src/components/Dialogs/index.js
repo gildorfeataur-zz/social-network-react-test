@@ -4,22 +4,26 @@ import DialogsMessage from "./DialogsMessage";
 
 import styles from "./index.module.scss";
 
-function Dialogs() {
+function Dialogs({ data }) {
   return (
     <div>
       <h1>Dialogs</h1>
       <div className={styles.container}>
         <aside className={styles.aside}>
           <nav className={styles.nav}>
-            <DialogsNavItem id="1" name="Dialog1" />
-            <DialogsNavItem id="2" name="Dialog2" />
-            <DialogsNavItem id="3" name="Dialog3" />
+            {data.dialogs.map((dialog) => (
+              <DialogsNavItem
+                key={dialog.id}
+                id={dialog.id}
+                name={dialog.name}
+              />
+            ))}
           </nav>
         </aside>
         <section className={styles.content}>
-          <DialogsMessage message="Hi!" />
-          <DialogsMessage message="Bro.." />
-          <DialogsMessage message="How the tings?" />
+          {data.messages.map((item) => (
+            <DialogsMessage key={item.id} message={item.message} />
+          ))}
         </section>
       </div>
     </div>
