@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Dialogs from "./components/Dialogs";
 import Profile from "./components/Profile";
 import PageLayout from "./components/PageLayout";
-import data from "./mockup/data";
+import store from "./mockup/data";
 
 import "./app.scss";
 
@@ -17,11 +17,21 @@ function App() {
         <Switch>
           <Route
             path="/profile"
-            render={() => <Profile data={data.profile} />}
+            render={() => (
+              <Profile
+                data={store.data.profile}
+                dispatch={store.dispatch.bind(store)}
+              />
+            )}
           />
           <Route
             path="/dialogs"
-            render={() => <Dialogs data={data.messages} />}
+            render={() => (
+              <Dialogs
+                data={store.data.messages}
+                dispatch={store.dispatch.bind(store)}
+              />
+            )}
           />
         </Switch>
       </PageLayout>
