@@ -4,11 +4,10 @@ import { Route, Switch } from "react-router-dom";
 import Dialogs from "./components/Dialogs";
 import Profile from "./components/Profile";
 import PageLayout from "./components/PageLayout";
-import store from "./mockup/data";
 
 import "./app.scss";
 
-function App() {
+function App({ store, state }) {
   return (
     <React.Fragment>
       <Header />
@@ -19,7 +18,7 @@ function App() {
             path="/profile"
             render={() => (
               <Profile
-                data={store.data.profile}
+                data={state.profileReducer}
                 dispatch={store.dispatch.bind(store)}
               />
             )}
@@ -28,7 +27,7 @@ function App() {
             path="/dialogs"
             render={() => (
               <Dialogs
-                data={store.data.messages}
+                data={state.messagesReducer}
                 dispatch={store.dispatch.bind(store)}
               />
             )}

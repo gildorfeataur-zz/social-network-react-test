@@ -32,7 +32,7 @@ let store = {
     console.log("full re-render");
   },
 
-  subscriber(observer) {
+  subscribe(observer) {
     this._rerenderAll = observer;
   },
 
