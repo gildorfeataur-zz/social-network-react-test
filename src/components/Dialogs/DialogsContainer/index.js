@@ -11,7 +11,7 @@ function DialogsContainer() {
   return (
     <StoreContext.Consumer>
       {(store) => {
-        let data = store.getState();
+        let data = store.getState().dialogsPage;
 
         const handleSendMessage = () => {
           store.dispatch(addMessageCreator());
@@ -23,12 +23,12 @@ function DialogsContainer() {
 
         return (
           <React.Fragment>
-            {data.dialogsPage.messages.map((item) => (
+            {data.messages.map((item) => (
               <DialogsMessage key={item.id} message={item.message} />
             ))}
 
             <DialogsForm
-              value={data.dialogsPage.myMessageValue}
+              value={data.myMessageValue}
               onChange={handleMessageChange}
               onClick={handleSendMessage}
             />

@@ -11,7 +11,7 @@ function ProfilePostsContainer() {
   return (
     <StoreContext.Consumer>
       {(store) => {
-        let data = store.getState();
+        let data = store.getState().profilePage;
 
         const handleAddPost = () => {
           store.dispatch(addPostCreator());
@@ -25,7 +25,7 @@ function ProfilePostsContainer() {
           <ProfilePosts
             onTextChange={handleChangeText}
             onTextAdd={handleAddPost}
-            data={data.profilePage}
+            data={data}
           />
         );
       }}
