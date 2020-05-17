@@ -1,0 +1,10 @@
+@import "src/styles/init";
+
+.textarea {
+  display: flex;
+
+  textarea {
+    width: 300px;
+    margin-right: 20px;
+  }
+}

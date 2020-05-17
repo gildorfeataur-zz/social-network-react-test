@@ -1,0 +1,13 @@
+@import "src/styles/init";
+
+.aside {
+  width: 200px;
+  height: 100%;
+  background-color: #999;
+  color: #fff;
+  padding: 20px 10px;
+}
+
+.nav {
+  display: grid;
+}

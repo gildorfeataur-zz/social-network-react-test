@@ -1,39 +1,20 @@
 import React from "react";
-import Header from "./components/Header";
-import { Route, Switch } from "react-router-dom";
-import Dialogs from "./components/Dialogs";
-import Profile from "./components/Profile";
-import PageLayout from "./components/PageLayout";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import DialogPage from "./pages/DialogPage";
+import ProfilePage from "./pages/ProfilePage";
 
 import "./app.scss";
 
 function App({ store, state }) {
   return (
     <React.Fragment>
-      <Header />
-
-      <PageLayout>
+      <BrowserRouter>
         <Switch>
-          <Route
-            path="/profile"
-            render={() => (
-              <Profile
-                data={state.profileReducer}
-                dispatch={store.dispatch.bind(store)}
-              />
-            )}
-          />
-          <Route
-            path="/dialogs"
-            render={() => (
-              <Dialogs
-                data={state.messagesReducer}
-                dispatch={store.dispatch.bind(store)}
-              />
-            )}
-          />
+          <Route path="/profile" render={() => <ProfilePage />} />
+          <Route path="/dialogs" render={() => <DialogPage />} />
         </Switch>
-      </PageLayout>
+      </BrowserRouter>
     </React.Fragment>
   );
 }
