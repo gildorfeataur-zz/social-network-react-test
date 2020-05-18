@@ -1,42 +1,23 @@
-import React from "react";
+import { connect } from "react-redux";
 import {
   addMessageCreator,
   messageChangeCreator,
 } from "../../../mockup/messagesReducer";
-import DialogsMessage from "../DialogsMessage";
-import DialogsForm from "../DialogsForm";
-import StoreContext from "../../../StoreContext";
+import DialogsMessages from "../DialogsMessages";
 
-function DialogsContainer() {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        let data = store.getState().dialogsPage;
+let mapStateToProps = (state) => {
+  return { data: state.dialogsPage };
+};
 
-        const handleSendMessage = () => {
-          store.dispatch(addMessageCreator());
-        };
+let mapDispatchToProps = (dispatch) => {
+  return {
+    handleSendMessage: () => {
+      dispatch(addMessageCreator());
+    },
+    handleMessageChange: (e) => {
+      dispatch(messageChangeCreator(String(e.target.value)));
+    },
+  };
+};
 
-        const handleMessageChange = (e) => {
-          store.dispatch(messageChangeCreator(String(e.target.value)));
-        };
-
-        return (
-          <React.Fragment>
-            {data.messages.map((item) => (
-              <DialogsMessage key={item.id} message={item.message} />
-            ))}
-
-            <DialogsForm
-              value={data.myMessageValue}
-              onChange={handleMessageChange}
-              onClick={handleSendMessage}
-            />
-          </React.Fragment>
-        );
-      }}
-    </StoreContext.Consumer>
-  );
-}
-
-export default DialogsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(DialogsMessages);

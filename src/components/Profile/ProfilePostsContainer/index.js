@@ -1,36 +1,23 @@
-import React from "react";
+import { connect } from "react-redux";
 import {
   addPostCreator,
   textChangeCreator,
 } from "../../../mockup/profileReducer";
-
 import ProfilePosts from "../ProfilePosts";
-import StoreContext from "../../../StoreContext";
 
-function ProfilePostsContainer() {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        let data = store.getState().profilePage;
+let mapStateToProps = (state) => {
+  return { data: state.profilePage };
+};
 
-        const handleAddPost = () => {
-          store.dispatch(addPostCreator());
-        };
+let mapDispatchToProps = (dispatch) => {
+  return {
+    handleAddPost: () => {
+      dispatch(addPostCreator());
+    },
+    handleChangeText: (e) => {
+      dispatch(textChangeCreator(String(e.target.value)));
+    },
+  };
+};
 
-        const handleChangeText = (e) => {
-          store.dispatch(textChangeCreator(String(e.target.value)));
-        };
-
-        return (
-          <ProfilePosts
-            onTextChange={handleChangeText}
-            onTextAdd={handleAddPost}
-            data={data}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
-}
-
-export default ProfilePostsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePosts);
