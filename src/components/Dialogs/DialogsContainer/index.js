@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {
   addMessageCreator,
   messageChangeCreator,
-} from "../../../mockup/messagesReducer";
+} from "../../../reducers/messagesReducer";
 import DialogsMessages from "../DialogsMessages";
 
 let mapStateToProps = (state) => {

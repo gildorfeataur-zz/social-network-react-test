@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {
   addPostCreator,
   textChangeCreator,
-} from "../../../mockup/profileReducer";
+} from "../../../reducers/profileReducer";
 import ProfilePosts from "../ProfilePosts";
 
 let mapStateToProps = (state) => {

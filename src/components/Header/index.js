@@ -9,6 +9,7 @@ function Header() {
       <nav className={styles.nav}>
         <NavLink to="/profile">Profile</NavLink>
         <NavLink to="/dialogs">Dialogs</NavLink>
+        <NavLink to="/users">Users</NavLink>
       </nav>
     </header>
   );
