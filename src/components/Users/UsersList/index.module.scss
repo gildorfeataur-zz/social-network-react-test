@@ -1,0 +1,20 @@
+@import "src/styles/init";
+
+.container {
+  margin-bottom: 30px;
+}
+
+.paginator {
+  display: flex;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+
+  button {
+    margin-right: 10px;
+
+    &.isActive {
+      font-weight: 700;
+      background-color: #aeaeae;
+    }
+  }
+}

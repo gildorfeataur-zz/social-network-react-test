@@ -1,0 +1,28 @@
+@import "src/styles/init";
+
+.container {
+  display: flex;
+  width: 100%;
+  border: 1px solid #999;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  align-items: center;
+  padding: 10px;
+}
+
+.avatar {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #333;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.content {
+  margin-left: 30px;
+  border-left: 1px solid #999;
+  padding-left: 10px;
+}

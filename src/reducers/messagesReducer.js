@@ -48,7 +48,7 @@ export const addMessageCreator = () => ({
 
 export const messageChangeCreator = (text) => ({
   type: UPDATE_MESSAGE_TEXT,
-  text: text,
+  text,
 });
 
 export default messagesReducer;

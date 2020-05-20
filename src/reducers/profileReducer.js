@@ -44,7 +44,7 @@ export const addPostCreator = () => ({
 
 export const textChangeCreator = (text) => ({
   type: UPDATE_POST_TEXT,
-  text: text,
+  text,
 });
 
 export default profileReducer;
