@@ -1,20 +1,11 @@
 import React from "react";
-import * as axios from "axios";
 import { connect } from "react-redux";
 import { addPost, textChange } from "../../../reducers/profileReducer";
 import ProfileInfo from "../ProfileInfo";
 import ProfilePosts from "../ProfilePosts";
+import { withRouter } from "react-router-dom";
 
 class MyProfileContainer extends React.Component {
-  // componentDidMount() {
-  //   axios
-  //     .get(`https://social-network.samuraijs.com/api/1.0/profile/${2}`)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       this.props.setUserProfile(response.data);
-  //     });
-  // }
-
   handlerTextSend = () => {
     this.props.addPost();
   };
@@ -37,6 +28,8 @@ class MyProfileContainer extends React.Component {
   }
 }
 
+let MyProfileRouter = withRouter(MyProfileContainer);
+
 let mapStateToProps = (state) => {
   return { data: state.profilePage };
 };
@@ -44,4 +37,4 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addPost,
   textChange,
-})(MyProfileContainer);
+})(MyProfileRouter);

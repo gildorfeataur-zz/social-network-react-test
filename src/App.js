@@ -13,7 +13,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route path="/profile" render={() => <ProfilePage />} />
+          <Route path="/profile/:userId" render={() => <ProfilePage />} />
           <Route path="/dialogs" render={() => <DialogPage />} />
           <Route path="/users" render={() => <UsersPage />} />
         </Switch>
