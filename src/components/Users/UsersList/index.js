@@ -1,5 +1,6 @@
 import React from "react";
 import UsersBlock from "../UsersBlock";
+import classnames from "classnames";
 
 import styles from "./index.module.scss";
 
@@ -12,6 +13,7 @@ function UsersList({ data, changeFollowing, changePage }) {
   return (
     <section className={styles.container}>
       <h2>Users list</h2>
+
       <div className={styles.paginator}>
         {buttons.map((item) => {
           return (
@@ -25,7 +27,12 @@ function UsersList({ data, changeFollowing, changePage }) {
           );
         })}
       </div>
-      <div>
+
+      <div
+        className={classnames(styles.list, {
+          [styles.isLoading]: data.isFetching,
+        })}
+      >
         {data.users.map((user) => (
           <UsersBlock
             key={user.id}
@@ -33,6 +40,14 @@ function UsersList({ data, changeFollowing, changePage }) {
             changeFollowing={changeFollowing}
           />
         ))}
+      </div>
+      <div className={styles.skypeLoader}>
+        <div className={styles.dot}>
+          <div className={styles.first}></div>
+        </div>
+        <div className={styles.dot}></div>
+        <div className={styles.dot}></div>
+        <div className={styles.dot}></div>
       </div>
     </section>
   );

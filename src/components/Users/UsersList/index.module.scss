@@ -1,6 +1,7 @@
 @import "src/styles/init";
 
 .container {
+  position: relative;
   margin-bottom: 30px;
 }
 
@@ -16,5 +17,76 @@
       font-weight: 700;
       background-color: #aeaeae;
     }
+  }
+}
+
+.list {
+  position: relative;
+  display: block;
+  opacity: 1;
+
+  &.isLoading {
+    opacity: 0.5;
+
+    & + .skypeLoader {
+      display: block;
+    }
+  }
+}
+
+//loader
+.skypeLoader {
+  @include absolute();
+  display: none;
+  width: 80px;
+  height: 80px;
+}
+
+.skypeLoader .dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+
+  :global {
+    animation: 1.7s dotRotate cubic-bezier(0.775, 0.005, 0.31, 1) infinite;
+  }
+}
+
+.skypeLoader .dot:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.skypeLoader .dot:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.skypeLoader .dot:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+.skypeLoader .dot:nth-child(4) {
+  animation-delay: 0.55s;
+}
+
+.skypeLoader .dot:after,
+.skypeLoader .dot .first {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgb(81, 148, 204);
+  border-radius: 50%;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.skypeLoader .dot .first {
+  background: rgb(81, 148, 204);
+  margin-top: -4px;
+  :global {
+    animation: 1.7s dotScale cubic-bezier(0.775, 0.005, 0.31, 1) infinite;
+    animation-delay: 0.2s;
   }
 }
