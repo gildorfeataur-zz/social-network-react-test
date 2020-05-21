@@ -1,5 +1,10 @@
 @import "src/styles/init";
 
+.container {
+  display: block;
+  position: relative;
+}
+
 .avatar {
   height: 240px;
   width: auto;
