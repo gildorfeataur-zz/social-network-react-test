@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import styles from "./index.module.scss";
 
-function Header() {
+function Header({ data }) {
   return (
     <header className={styles.container}>
       <nav className={styles.nav}>
@@ -11,6 +11,9 @@ function Header() {
         <NavLink to="/dialogs">Dialogs</NavLink>
         <NavLink to="/users">Users</NavLink>
       </nav>
+      <aside className={styles.aside}>
+        <NavLink to={"/login"}>Login</NavLink>
+      </aside>
     </header>
   );
 }

@@ -4,11 +4,11 @@
   background-color: #282c34;
   min-height: 100px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  justify-content: space-around;
 }
 
 .nav {
@@ -16,6 +16,12 @@
 
   & > a {
     margin: auto 10px;
+    color: #fff;
+  }
+}
+
+.aside {
+  & > a {
     color: #fff;
   }
 }

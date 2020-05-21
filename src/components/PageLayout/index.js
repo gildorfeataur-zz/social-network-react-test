@@ -1,11 +1,12 @@
 import React from "react";
 
 import styles from "./index.module.scss";
+import HeaderContainer from "../HeaderContainer";
 
-function PageLayout({ header, children }) {
+function PageLayout({ children }) {
   return (
     <div>
-      {header}
+      <HeaderContainer />
       <main className={styles.container}>{children}</main>
     </div>
   );

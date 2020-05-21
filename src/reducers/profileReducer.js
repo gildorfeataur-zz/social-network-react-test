@@ -3,12 +3,12 @@ const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
-  posts: [
-    { id: 1, message: "Heya!", likesCount: 12 },
-    { id: 2, message: "How are you?", likesCount: 22 },
-    { id: 3, message: "What's new?", likesCount: 2 },
-  ],
-  myPostValue: "",
+  // posts: [
+  //   { id: 1, message: "Heya!", likesCount: 12 },
+  //   { id: 2, message: "How are you?", likesCount: 22 },
+  //   { id: 3, message: "What's new?", likesCount: 2 },
+  // ],
+  // myPostValue: "",
   profile: null,
 };
 
