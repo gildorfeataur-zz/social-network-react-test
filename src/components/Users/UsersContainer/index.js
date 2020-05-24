@@ -1,5 +1,4 @@
 import React from "react";
-import * as axios from "axios";
 import { connect } from "react-redux";
 import {
   followToggle,
@@ -7,19 +6,19 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   isFetchingIndicate,
+  isLoadingIndicate,
 } from "../../../reducers/usersReducer";
 import UsersList from "../UsersList";
+import { userAPI } from "../../../api/api";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.isFetchingIndicate(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.data.currentPage}&count=${this.props.data.itemsPerPage}`
-      )
+    userAPI
+      .getUsers(this.props.data.currentPage, this.props.data.itemsPerPage)
       .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
+        this.props.setUsers(response.items);
+        this.props.setTotalUsersCount(response.totalCount);
         this.props.isFetchingIndicate(false);
       });
   }
@@ -28,18 +27,30 @@ class UsersContainer extends React.Component {
     this.props.setCurrentPage(page);
     this.props.isFetchingIndicate(true);
 
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.data.itemsPerPage}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.isFetchingIndicate(false);
-      });
+    userAPI.getUsers(page, this.props.data.itemsPerPage).then((response) => {
+      this.props.setUsers(response.items);
+      this.props.isFetchingIndicate(false);
+    });
   };
 
-  handleChangeFollowing = (id) => {
-    this.props.followToggle(id);
+  handleChangeFollowing = (user) => {
+    this.props.isLoadingIndicate(user.id, true);
+
+    if (user.followed === false) {
+      userAPI.setFollow(user.id).then((response) => {
+        if (response.resultCode === 0) {
+          this.props.followToggle(user.id);
+          this.props.isLoadingIndicate(user.id, false);
+        }
+      });
+    } else {
+      userAPI.setUnFollow(user.id).then((response) => {
+        if (response.resultCode === 0) {
+          this.props.followToggle(user.id);
+          this.props.isLoadingIndicate(user.id, false);
+        }
+      });
+    }
   };
 
   render() {
@@ -63,4 +74,5 @@ export default connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   isFetchingIndicate,
+  isLoadingIndicate,
 })(UsersContainer);

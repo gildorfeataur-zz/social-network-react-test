@@ -37,6 +37,7 @@ function UsersList({ data, changeFollowing, changePage }) {
               key={user.id}
               user={user}
               changeFollowing={changeFollowing}
+              {...data}
             />
           ))}
         </div>

@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./index.module.scss";
 import { NavLink } from "react-router-dom";
 
-function UsersBlock({ user, changeFollowing }) {
+function UsersBlock({ user, changeFollowing, isLoadingStack }) {
   return (
     <div className={styles.container}>
       <NavLink to={"profile/" + user.id}>
@@ -15,11 +15,21 @@ function UsersBlock({ user, changeFollowing }) {
         <h4>{user.name}</h4>
 
         {user.followed ? (
-          <button onClick={(e) => changeFollowing(user.id)} type="button">
+          <button
+            disabled={isLoadingStack.some((id) => id === user.id)}
+            onClick={(e) => changeFollowing(user)}
+            type="button"
+            className={styles.btn}
+          >
             UnFollow
           </button>
         ) : (
-          <button onClick={(e) => changeFollowing(user.id)} type="button">
+          <button
+            disabled={isLoadingStack.some((id) => id === user.id)}
+            onClick={(e) => changeFollowing(user)}
+            type="button"
+            className={styles.btn}
+          >
             Follow
           </button>
         )}

@@ -13,8 +13,9 @@ let reducers = combineReducers({
   sidebar: sidebarReducer,
 });
 
-// allowed show store to console
 let store = createStore(reducers);
+
+// allowed show store to console
 window.store = store;
 //
 

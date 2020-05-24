@@ -3,6 +3,7 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const IS_LOADING = "IS_LOADING";
+const IS_FETCHING = "IS_FETCHING";
 
 let initialState = {
   users: [],
@@ -10,6 +11,7 @@ let initialState = {
   usersTotalCount: 0,
   currentPage: 1,
   isFetching: false,
+  isLoadingStack: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -49,10 +51,19 @@ const usersReducer = (state = initialState, action) => {
       };
     }
 
-    case IS_LOADING: {
+    case IS_FETCHING: {
       return {
         ...state,
         isFetching: action.isFetching,
+      };
+    }
+
+    case IS_LOADING: {
+      return {
+        ...state,
+        isLoadingStack: action.isLoading
+          ? [...state.isLoadingStack, action.userId]
+          : state.isLoadingStack.filter((id) => id !== action.userId),
       };
     }
 
@@ -82,8 +93,14 @@ export const setTotalUsersCount = (number) => ({
 });
 
 export const isFetchingIndicate = (isFetching) => ({
-  type: IS_LOADING,
+  type: IS_FETCHING,
   isFetching,
+});
+
+export const isLoadingIndicate = (userId, isLoading) => ({
+  type: IS_LOADING,
+  userId,
+  isLoading,
 });
 
 export default usersReducer;
