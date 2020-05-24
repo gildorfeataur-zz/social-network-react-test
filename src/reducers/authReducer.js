@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 let initialState = {
@@ -26,5 +28,17 @@ export const setUserData = (data) => ({
   type: SET_USER_DATA,
   data,
 });
+
+// THUNKs
+
+export const sendLoginRequest = () => {
+  return (dispatch) => {
+    userAPI.sendLoginRequest().then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(setUserData(response.data));
+      }
+    });
+  };
+};
 
 export default authReducer;

@@ -1,3 +1,5 @@
+import { userAPI } from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
@@ -102,5 +104,42 @@ export const isLoadingIndicate = (userId, isLoading) => ({
   userId,
   isLoading,
 });
+
+// THUNKs
+
+export const getUsers = (currentPage, itemsPerPage) => {
+  return (dispatch) => {
+    dispatch(isFetchingIndicate(true));
+
+    userAPI.getUsers(currentPage, itemsPerPage).then((response) => {
+      dispatch(setUsers(response.items));
+      dispatch(setCurrentPage(currentPage));
+      dispatch(setTotalUsersCount(response.totalCount));
+      dispatch(isFetchingIndicate(false));
+    });
+  };
+};
+
+export const followUserToggle = (user) => {
+  return (dispatch) => {
+    dispatch(isLoadingIndicate(user.id, true));
+
+    if (user.followed === false) {
+      userAPI.setFollow(user.id).then((response) => {
+        if (response.resultCode === 0) {
+          dispatch(followToggle(user.id));
+          dispatch(isLoadingIndicate(user.id, false));
+        }
+      });
+    } else {
+      userAPI.setUnFollow(user.id).then((response) => {
+        if (response.resultCode === 0) {
+          dispatch(followToggle(user.id));
+          dispatch(isLoadingIndicate(user.id, false));
+        }
+      });
+    }
+  };
+};
 
 export default usersReducer;

@@ -1,56 +1,27 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  followToggle,
-  setUsers,
+  followUserToggle,
   setCurrentPage,
-  setTotalUsersCount,
-  isFetchingIndicate,
   isLoadingIndicate,
+  getUsers,
 } from "../../../reducers/usersReducer";
 import UsersList from "../UsersList";
-import { userAPI } from "../../../api/api";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.isFetchingIndicate(true);
-    userAPI
-      .getUsers(this.props.data.currentPage, this.props.data.itemsPerPage)
-      .then((response) => {
-        this.props.setUsers(response.items);
-        this.props.setTotalUsersCount(response.totalCount);
-        this.props.isFetchingIndicate(false);
-      });
+    this.props.getUsers(
+      this.props.data.currentPage,
+      this.props.data.itemsPerPage
+    );
   }
 
   handlePageChange = (page) => {
-    this.props.setCurrentPage(page);
-    this.props.isFetchingIndicate(true);
-
-    userAPI.getUsers(page, this.props.data.itemsPerPage).then((response) => {
-      this.props.setUsers(response.items);
-      this.props.isFetchingIndicate(false);
-    });
+    this.props.getUsers(page, this.props.data.itemsPerPage);
   };
 
   handleChangeFollowing = (user) => {
-    this.props.isLoadingIndicate(user.id, true);
-
-    if (user.followed === false) {
-      userAPI.setFollow(user.id).then((response) => {
-        if (response.resultCode === 0) {
-          this.props.followToggle(user.id);
-          this.props.isLoadingIndicate(user.id, false);
-        }
-      });
-    } else {
-      userAPI.setUnFollow(user.id).then((response) => {
-        if (response.resultCode === 0) {
-          this.props.followToggle(user.id);
-          this.props.isLoadingIndicate(user.id, false);
-        }
-      });
-    }
+    this.props.followUserToggle(user);
   };
 
   render() {
@@ -69,10 +40,8 @@ let mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  followToggle,
-  setUsers,
+  followUserToggle,
   setCurrentPage,
-  setTotalUsersCount,
-  isFetchingIndicate,
   isLoadingIndicate,
+  getUsers,
 })(UsersContainer);

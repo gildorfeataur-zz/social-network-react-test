@@ -9,7 +9,7 @@ const userCredentials = axios.create({
 });
 
 export const userAPI = {
-  sendLogin() {
+  sendLoginRequest() {
     return userCredentials.get(`auth/me`).then((response) => {
       return response.data;
     });
@@ -31,6 +31,12 @@ export const userAPI = {
 
   setUnFollow(userId) {
     return userCredentials.delete(`/follow/${userId}`).then((response) => {
+      return response.data;
+    });
+  },
+
+  openUserProfile(userId) {
+    return userCredentials.get(`/profile/${userId}`).then((response) => {
       return response.data;
     });
   },
