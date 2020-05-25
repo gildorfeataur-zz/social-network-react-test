@@ -7,6 +7,8 @@ import {
   getUsers,
 } from "../../../reducers/usersReducer";
 import UsersList from "../UsersList";
+import { compose } from "redux";
+import withLoginRedirect from "../../../hoc/withLoginRedirect";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -39,9 +41,12 @@ let mapStateToProps = (state) => {
   return { data: state.usersPage };
 };
 
-export default connect(mapStateToProps, {
-  followUserToggle,
-  setCurrentPage,
-  isLoadingIndicate,
-  getUsers,
-})(UsersContainer);
+export default compose(
+  withLoginRedirect,
+  connect(mapStateToProps, {
+    followUserToggle,
+    setCurrentPage,
+    isLoadingIndicate,
+    getUsers,
+  })
+)(UsersContainer);
