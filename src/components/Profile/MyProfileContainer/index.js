@@ -17,7 +17,10 @@ class MyProfileContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <ProfileInfo />
+        <ProfileInfo
+          profile={this.props.data}
+          myProfileData={this.props.auth}
+        />
         <ProfilePosts
           data={this.props.data}
           onTextChange={this.handlerTextChange}
@@ -31,7 +34,7 @@ class MyProfileContainer extends React.Component {
 let MyProfileRouter = withRouter(MyProfileContainer);
 
 let mapStateToProps = (state) => {
-  return { data: state.profilePage };
+  return { data: state.profilePage, auth: state.auth };
 };
 
 export default connect(mapStateToProps, {

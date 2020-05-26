@@ -8,7 +8,7 @@ function Header({ login, isLogin }) {
     <header className={styles.container}>
       <nav className={styles.nav}>
         <NavLink to="/login">Login</NavLink>
-        <NavLink to="/profile">My Profile</NavLink>
+        <NavLink to="/profile/my-profile">My Profile</NavLink>
         <NavLink to="/dialogs">Dialogs</NavLink>
         <NavLink to="/users">Users</NavLink>
       </nav>

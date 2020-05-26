@@ -7,13 +7,12 @@ import styles from "./index.module.scss";
 function UsersList({ data, changeFollowing, changePage }) {
   let totalPages = Math.ceil(data.usersTotalCount / data.itemsPerPage);
   let buttons = [];
-  let range = 10;
   const [start, setStart] = React.useState(1);
-  const [buttonsPerPage, setButtonsPerPage] = React.useState(range);
+  const [buttonsPerPage, setButtonsPerPage] = React.useState(10);
 
   if (data.currentPage === buttonsPerPage) {
     setStart(buttonsPerPage);
-    setButtonsPerPage(buttonsPerPage + range);
+    setButtonsPerPage(buttonsPerPage + 10);
   }
 
   for (let index = start; index <= totalPages; index++) {
@@ -21,7 +20,6 @@ function UsersList({ data, changeFollowing, changePage }) {
       buttons.push(index);
     }
     if (index === totalPages - 1) {
-      buttons.push("...");
       buttons.push(totalPages);
     }
   }
