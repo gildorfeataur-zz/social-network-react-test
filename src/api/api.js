@@ -35,9 +35,29 @@ export const userAPI = {
     });
   },
 
-  openUserProfile(userId) {
+  getUserProfile(userId) {
+    return userCredentials.get(`/profile/${userId}`).then((response) => {
+      return profileAPI.getProfile(userId);
+    });
+  },
+};
+
+export const profileAPI = {
+  getProfile(userId) {
     return userCredentials.get(`/profile/${userId}`).then((response) => {
       return response.data;
+    });
+  },
+
+  getStatus(userId) {
+    return userCredentials.get(`/profile/status/${userId}`).then((response) => {
+      return response.data;
+    });
+  },
+
+  updateStatus(status) {
+    return userCredentials.put(`/profile/status`, {
+      status: status,
     });
   },
 };

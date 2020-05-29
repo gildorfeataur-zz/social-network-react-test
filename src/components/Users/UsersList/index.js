@@ -1,6 +1,7 @@
 import React from "react";
 import UsersBlock from "../UsersBlock";
 import Preloader from "../../Preloader";
+import classNames from "classnames";
 
 import styles from "./index.module.scss";
 
@@ -19,8 +20,8 @@ function UsersList({ data, changeFollowing, changePage }) {
     if (index <= buttonsPerPage) {
       buttons.push(index);
     }
-    if (index === totalPages - 1) {
-      buttons.push(totalPages);
+    if (index === totalPages) {
+      break;
     }
   }
 
@@ -32,12 +33,29 @@ function UsersList({ data, changeFollowing, changePage }) {
         <button
           className={styles.paginatorBtn}
           value="prev"
-          onClick={() => changePage(data.currentPage - 1)}
+          onClick={() => {
+            changePage(data.currentPage - 1);
+          }}
           disabled={data.currentPage === 1}
         >
           Prev
         </button>
+
         <div className={styles.paginatorPages}>
+          {data.currentPage >= 10 ? (
+            <button
+              key={1}
+              className={classNames(styles.firstBtn, {
+                [styles.isActive]: data.currentPage === 1,
+              })}
+              onClick={() => {
+                changePage(1);
+              }}
+            >
+              1
+            </button>
+          ) : null}
+
           {buttons.map((item) => {
             return (
               <button
@@ -49,7 +67,18 @@ function UsersList({ data, changeFollowing, changePage }) {
               </button>
             );
           })}
+
+          <button
+            key={totalPages}
+            className={classNames(styles.lastBtn, {
+              [styles.isActive]: data.currentPage === totalPages,
+            })}
+            onClick={() => changePage(totalPages)}
+          >
+            {totalPages}
+          </button>
         </div>
+
         <button
           className={styles.paginatorBtn}
           value="next"

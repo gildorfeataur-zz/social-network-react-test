@@ -9,7 +9,7 @@ const IS_FETCHING = "IS_FETCHING";
 
 let initialState = {
   users: [],
-  itemsPerPage: 7,
+  itemsPerPage: 10,
   usersTotalCount: 0,
   currentPage: 1,
   isFetching: false,

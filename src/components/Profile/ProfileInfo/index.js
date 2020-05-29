@@ -3,7 +3,7 @@ import Preloader from "./../../Preloader";
 
 import styles from "./index.module.scss";
 
-function ProfileInfo({ profile, myProfileData }) {
+function ProfileInfo({ profile, myProfileData, status }) {
   if (myProfileData) {
     return (
       <React.Fragment>
@@ -40,7 +40,9 @@ function ProfileInfo({ profile, myProfileData }) {
               <p>Name: {profile.fullName}</p>
               <p>ID: {profile.userId}</p>
             </section>
-            <section>Other information</section>
+            <section>
+              <p>Status: {status}</p>
+            </section>
           </div>
         ) : (
           <Preloader />
