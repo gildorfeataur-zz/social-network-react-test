@@ -6,6 +6,7 @@ import {
   getUserStatus,
   updateStatus,
 } from "../../../reducers/profileReducer";
+import { sendCheckUser } from "../../../reducers/authReducer";
 import ProfileInfo from "../ProfileInfo";
 import ProfilePosts from "../ProfilePosts";
 import { withRouter } from "react-router-dom";
@@ -15,6 +16,10 @@ import { compose } from "redux";
 
 class MyProfileContainer extends React.Component {
   componentDidMount() {
+    this.props.sendCheckUser();
+  }
+
+  componentDidUpdate() {
     this.props.getUserStatus(this.props.auth.id);
   }
 
@@ -53,6 +58,7 @@ let mapStateToProps = (state) => {
     data: state.profilePage,
     auth: state.auth,
     status: state.profilePage.status,
+    login: state.auth.login,
   };
 };
 
@@ -62,6 +68,7 @@ export default compose(
     textChange,
     getUserStatus,
     updateStatus,
+    sendCheckUser,
   }),
   withRouter,
   withLoginRedirect

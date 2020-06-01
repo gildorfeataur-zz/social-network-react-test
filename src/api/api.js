@@ -9,7 +9,13 @@ const userCredentials = axios.create({
 });
 
 export const userAPI = {
-  sendLoginRequest() {
+  sendLoginRequest(credentials) {
+    return userCredentials.post(`auth/login`, credentials).then((response) => {
+      return response.data;
+    });
+  },
+
+  sendCheckUser() {
     return userCredentials.get(`auth/me`).then((response) => {
       return response.data;
     });

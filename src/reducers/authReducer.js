@@ -31,9 +31,19 @@ export const setUserData = (data) => ({
 
 // THUNKs
 
-export const sendLoginRequest = () => {
+export const sendLoginRequest = (credentials) => {
   return (dispatch) => {
-    userAPI.sendLoginRequest().then((response) => {
+    userAPI.sendLoginRequest(credentials).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(setUserData(response.data));
+      }
+    });
+  };
+};
+
+export const sendCheckUser = () => {
+  return (dispatch) => {
+    userAPI.sendCheckUser().then((response) => {
       if (response.resultCode === 0) {
         dispatch(setUserData(response.data));
       }
