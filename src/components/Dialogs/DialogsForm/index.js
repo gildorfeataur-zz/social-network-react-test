@@ -1,16 +1,24 @@
 import React from "react";
 
 import styles from "./index.module.scss";
+import { Field, reduxForm } from "redux-form";
 
-function DialogsForm({ value, onChange, onClick }) {
+function DialogsForm({ ...props }) {
   return (
-    <React.Fragment>
-      <div className={styles.textarea}>
-        <textarea value={value} onChange={onChange}></textarea>
-        <button onClick={onClick}>Add message</button>
-      </div>
-    </React.Fragment>
+    <form className={styles.textarea} onSubmit={props.handleSubmit}>
+      <Field
+        component="textarea"
+        name="newMessage"
+        placeholder="Enter your message"
+      />
+      {/* <textarea value={props.valuevalue} onChange={onChange}></textarea> */}
+      <button type="submit">Add message</button>
+    </form>
   );
 }
 
-export default DialogsForm;
+const DialogsReduxForm = reduxForm({
+  form: "dialogsMessage",
+})(DialogsForm);
+
+export default DialogsReduxForm;

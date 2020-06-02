@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   addPost,
-  textChange,
   getUserStatus,
   updateStatus,
 } from "../../../reducers/profileReducer";
@@ -13,6 +12,7 @@ import { withRouter } from "react-router-dom";
 import MyProfileStatus from "../MyProfileStatus";
 import withLoginRedirect from "../../../hoc/withLoginRedirect";
 import { compose } from "redux";
+import MyProfilePostsForm from "../MyProfilePostsForm";
 
 class MyProfileContainer extends React.Component {
   componentDidMount() {
@@ -23,12 +23,8 @@ class MyProfileContainer extends React.Component {
     this.props.getUserStatus(this.props.auth.id);
   }
 
-  handlerTextSend = () => {
-    this.props.addPost();
-  };
-
-  handlerTextChange = (e) => {
-    this.props.textChange(String(e.target.value));
+  handleSendMessage = (data) => {
+    this.props.addPost(data.newMessage);
   };
 
   render() {
@@ -38,16 +34,16 @@ class MyProfileContainer extends React.Component {
           profile={this.props.data}
           myProfileData={this.props.auth}
         />
+
         <MyProfileStatus
           myProfileData={this.props.auth}
           userStatus={this.props.status}
           updateStatus={this.props.updateStatus}
         />
-        <ProfilePosts
-          data={this.props.data}
-          onTextChange={this.handlerTextChange}
-          onTextSend={this.handlerTextSend}
-        />
+
+        <MyProfilePostsForm onSubmit={this.handleSendMessage} />
+
+        <ProfilePosts data={this.props.data} />
       </React.Fragment>
     );
   }
@@ -65,11 +61,10 @@ let mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, {
     addPost,
-    textChange,
     getUserStatus,
     updateStatus,
     sendCheckUser,
   }),
-  withRouter,
-  withLoginRedirect
+  withRouter
+  // withLoginRedirect
 )(MyProfileContainer);
