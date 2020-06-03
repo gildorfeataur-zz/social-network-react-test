@@ -1,0 +1,13 @@
+@import "src/styles/init";
+
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.btn {
+  margin-left: 20px;
+  width: 80px;
+  height: 32px;
+}

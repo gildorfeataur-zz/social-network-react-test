@@ -5,7 +5,7 @@ import {
   getUserStatus,
   updateStatus,
 } from "../../../reducers/profileReducer";
-import { sendCheckUser } from "../../../reducers/authReducer";
+import { sendCheckRequest } from "../../../reducers/authReducer";
 import ProfileInfo from "../ProfileInfo";
 import ProfilePosts from "../ProfilePosts";
 import { withRouter } from "react-router-dom";
@@ -16,10 +16,7 @@ import MyProfilePostsForm from "../MyProfilePostsForm";
 
 class MyProfileContainer extends React.Component {
   componentDidMount() {
-    this.props.sendCheckUser();
-  }
-
-  componentDidUpdate() {
+    this.props.sendCheckRequest();
     this.props.getUserStatus(this.props.auth.id);
   }
 
@@ -63,7 +60,7 @@ export default compose(
     addPost,
     getUserStatus,
     updateStatus,
-    sendCheckUser,
+    sendCheckRequest,
   }),
   withRouter
   // withLoginRedirect

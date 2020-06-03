@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import styles from "./index.module.scss";
 
-function Header({ login, isLogin }) {
+function Header({ login, isLogin, handleLogout }) {
   return (
     <header className={styles.container}>
       <nav className={styles.nav}>
@@ -14,7 +14,10 @@ function Header({ login, isLogin }) {
       </nav>
       <aside className={styles.aside}>
         {isLogin ? (
-          <span>{login}</span>
+          <div>
+            <span>{login}</span>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         ) : (
           <NavLink to={"/login"}>Login</NavLink>
         )}

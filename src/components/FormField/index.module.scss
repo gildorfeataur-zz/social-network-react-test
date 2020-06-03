@@ -1,0 +1,10 @@
+@import "src/styles/init";
+
+.container {
+  position: relative;
+}
+
+.error {
+  @include absolute(auto, auto, -14px, 0);
+  color: red;
+}

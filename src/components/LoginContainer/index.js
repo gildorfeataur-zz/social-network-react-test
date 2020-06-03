@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { sendLoginRequest } from "../../reducers/authReducer";
 import { Redirect } from "react-router-dom";
 import LoginForm from "../LoginForm";
-// import Preloader from "../Preloader";
 
 function LoginContainer(props) {
   const handleSubmit = (data) => {

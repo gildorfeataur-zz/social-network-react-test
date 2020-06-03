@@ -9,18 +9,6 @@ const userCredentials = axios.create({
 });
 
 export const userAPI = {
-  sendLoginRequest(credentials) {
-    return userCredentials.post(`auth/login`, credentials).then((response) => {
-      return response.data;
-    });
-  },
-
-  sendCheckUser() {
-    return userCredentials.get(`auth/me`).then((response) => {
-      return response.data;
-    });
-  },
-
   getUsers(currentPage = 1, itemsPerPage = 10) {
     return userCredentials
       .get(`users?page=${currentPage}&count=${itemsPerPage}`)
@@ -64,6 +52,26 @@ export const profileAPI = {
   updateStatus(status) {
     return userCredentials.put(`/profile/status`, {
       status: status,
+    });
+  },
+};
+
+export const authAPI = {
+  sendLoginRequest(credentials) {
+    return userCredentials.post(`auth/login`, credentials).then((response) => {
+      return response.data;
+    });
+  },
+
+  sendLogoutRequest() {
+    return userCredentials.delete(`auth/login`).then((response) => {
+      return response.data;
+    });
+  },
+
+  sendCheckRequest() {
+    return userCredentials.get(`auth/me`).then((response) => {
+      return response.data;
     });
   },
 };
