@@ -6,15 +6,17 @@ import LoginForm from "../LoginForm";
 
 function LoginContainer(props) {
   const handleSubmit = (data) => {
-    console.log(data);
     props.sendLoginRequest(data);
   };
 
   return (
     <div>
       <h3>Login form</h3>
-
-      <LoginForm onSubmit={handleSubmit} />
+      {props.isLogin ? (
+        <Redirect to="/profile/my-profile" />
+      ) : (
+        <LoginForm onSubmit={handleSubmit} />
+      )}
     </div>
   );
 }

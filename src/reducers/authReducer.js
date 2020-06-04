@@ -51,7 +51,7 @@ export const sendLoginRequest = (credentials) => {
   return (dispatch) => {
     authAPI.sendLoginRequest(credentials).then((response) => {
       if (response.resultCode === 0) {
-        dispatch(setUserData(response.data));
+        dispatch(sendCheckRequest());
       }
     });
   };
