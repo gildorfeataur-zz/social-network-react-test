@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./index.module.scss";
 
 const FormField = ({
+  type,
   textarea,
   input,
   placeholder,
@@ -13,7 +14,7 @@ const FormField = ({
       {textarea ? (
         <textarea {...input} placeholder={placeholder}></textarea>
       ) : (
-        <input {...input} placeholder={placeholder} />
+        <input type={type} {...input} placeholder={placeholder} />
       )}
       {touched && error && <span className={styles.error}>{error}</span>}
     </div>

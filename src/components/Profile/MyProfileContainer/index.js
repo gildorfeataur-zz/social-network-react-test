@@ -62,6 +62,6 @@ export default compose(
     updateStatus,
     sendCheckRequest,
   }),
-  withRouter
-  // withLoginRedirect
+  withRouter,
+  withLoginRedirect
 )(MyProfileContainer);

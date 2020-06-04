@@ -12,6 +12,7 @@ function LoginForm(props) {
         <Field
           placeholder="Email"
           name="email"
+          type="email"
           component={FormField}
           validate={[required]}
         />
@@ -20,6 +21,7 @@ function LoginForm(props) {
         <Field
           placeholder="Password"
           name="password"
+          type="password"
           component={FormField}
           validate={[required]}
         />
@@ -33,6 +35,7 @@ function LoginForm(props) {
         />
         <span>Remember me</span>
       </label>
+      <p className={styles.error}>{props.error}</p>
       <div className={styles.item}>
         <button type="submit">Login</button>
       </div>

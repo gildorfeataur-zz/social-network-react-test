@@ -23,7 +23,7 @@ function LoginContainer(props) {
 }
 
 const mapStateToProps = (state) => {
-  return { login: state.auth.login, isLogin: state.auth.isLogin };
+  return { isLogin: state.auth.isLogin };
 };
 
 export default connect(mapStateToProps, { sendLoginRequest })(LoginContainer);
