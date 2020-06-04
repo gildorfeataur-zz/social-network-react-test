@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { sendCheckRequest } from "./reducers/authReducer";
+import { initApp } from "./reducers/appReducer";
 import { compose } from "redux";
 import { withRouter, Switch } from "react-router-dom";
 import { connect } from "react-redux";
@@ -11,12 +11,16 @@ import LoginPage from "./pages/LoginPage";
 import UsersPage from "./pages/UsersPage";
 
 import "./app.scss";
+import Preloader from "./components/Preloader";
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.sendCheckRequest();
+    this.props.initApp();
   }
   render() {
+    if (!this.props.init) {
+      return <Preloader />;
+    }
     return (
       <Switch>
         <Route path="/" exact render={() => <LoginPage />} />
@@ -35,12 +39,12 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { isLogin: state.auth.isLogin };
+  return { init: state.app.init };
 };
 
 export default compose(
   withRouter,
   connect(mapStateToProps, {
-    sendCheckRequest,
+    initApp,
   })
 )(App);

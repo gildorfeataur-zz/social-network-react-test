@@ -69,7 +69,7 @@ export const sendLogoutRequest = () => {
 
 export const sendCheckRequest = () => {
   return (dispatch) => {
-    authAPI.sendCheckRequest().then((response) => {
+    return authAPI.sendCheckRequest().then((response) => {
       if (response.resultCode === 0) {
         dispatch(setUserData(response.data));
       }

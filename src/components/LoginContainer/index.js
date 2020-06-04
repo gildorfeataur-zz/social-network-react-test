@@ -13,11 +13,8 @@ function LoginContainer(props) {
   return (
     <div>
       <h3>Login form</h3>
-      {props.isLogin ? (
-        <Redirect to="/profile/my-profile" />
-      ) : (
-        <LoginForm onSubmit={handleSubmit} />
-      )}
+
+      <LoginForm onSubmit={handleSubmit} />
     </div>
   );
 }
