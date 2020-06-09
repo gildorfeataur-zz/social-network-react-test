@@ -17,6 +17,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.initApp();
   }
+
   render() {
     if (!this.props.init) {
       return <Preloader />;
