@@ -39,7 +39,7 @@ class MyProfileContainer extends React.Component {
 
         <MyProfilePostsForm onSubmit={this.handleSendMessage} />
 
-        <ProfilePosts data={this.props.data} />
+        <ProfilePosts posts={this.props.data.posts} />
       </React.Fragment>
     );
   }
