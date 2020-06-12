@@ -21,7 +21,6 @@ const usersReducer = (state = initialState, action) => {
     case FOLLOW: {
       return {
         ...state,
-        // users: [...state.users],
         users: state.users.map((user) => {
           if (user.id === action.userId) {
             return { ...user, followed: !user.followed };
@@ -107,39 +106,32 @@ export const isLoadingIndicate = (userId, isLoading) => ({
 
 // THUNKs
 
-export const getUsers = (currentPage, itemsPerPage) => {
-  return (dispatch) => {
-    dispatch(isFetchingIndicate(true));
+export const getUsers = (currentPage, itemsPerPage) => async (dispatch) => {
+  dispatch(isFetchingIndicate(true));
 
-    userAPI.getUsers(currentPage, itemsPerPage).then((response) => {
-      dispatch(setUsers(response.items));
-      dispatch(setCurrentPage(currentPage));
-      dispatch(setTotalUsersCount(response.totalCount));
-      dispatch(isFetchingIndicate(false));
-    });
-  };
+  let response = await userAPI.getUsers(currentPage, itemsPerPage);
+  dispatch(setUsers(response.items));
+  dispatch(setCurrentPage(currentPage));
+  dispatch(setTotalUsersCount(response.totalCount));
+  dispatch(isFetchingIndicate(false));
 };
 
-export const followUserToggle = (user) => {
-  return (dispatch) => {
-    dispatch(isLoadingIndicate(user.id, true));
+export const followUserToggle = (user) => async (dispatch) => {
+  dispatch(isLoadingIndicate(user.id, true));
 
-    if (user.followed === false) {
-      userAPI.setFollow(user.id).then((response) => {
-        if (response.resultCode === 0) {
-          dispatch(followToggle(user.id));
-          dispatch(isLoadingIndicate(user.id, false));
-        }
-      });
-    } else {
-      userAPI.setUnFollow(user.id).then((response) => {
-        if (response.resultCode === 0) {
-          dispatch(followToggle(user.id));
-          dispatch(isLoadingIndicate(user.id, false));
-        }
-      });
+  if (user.followed === false) {
+    let response = await userAPI.setFollow(user.id);
+    if (response.resultCode === 0) {
+      dispatch(followToggle(user.id));
+      dispatch(isLoadingIndicate(user.id, false));
     }
-  };
+  } else {
+    let response = await userAPI.setUnFollow(user.id);
+    if (response.resultCode === 0) {
+      dispatch(followToggle(user.id));
+      dispatch(isLoadingIndicate(user.id, false));
+    }
+  }
 };
 
 export default usersReducer;

@@ -1,7 +1,7 @@
 import { authAPI } from "../api/api";
 
-const SET_USER_DATA = "SET_USER_DATA";
-const UNSET_USER_DATA = "UNSET_USER_DATA";
+const SET_USER_DATA = "AUTH/SET_USER_DATA";
+const UNSET_USER_DATA = "AUTH/UNSET_USER_DATA";
 
 let initialState = {
   id: null,
@@ -47,34 +47,25 @@ const unsetUserData = (data) => ({
 
 // THUNKs
 
-export const sendLoginRequest = (credentials) => {
-  return (dispatch) => {
-    authAPI.sendLoginRequest(credentials).then((response) => {
-      if (response.resultCode === 0) {
-        dispatch(sendCheckRequest());
-      }
-    });
-  };
+export const sendLoginRequest = (credentials) => async (dispatch) => {
+  let response = await authAPI.sendLoginRequest(credentials);
+  if (response.resultCode === 0) {
+    dispatch(sendCheckRequest());
+  }
 };
 
-export const sendLogoutRequest = () => {
-  return (dispatch) => {
-    authAPI.sendLogoutRequest().then((response) => {
-      if (response.resultCode === 0) {
-        dispatch(unsetUserData());
-      }
-    });
-  };
+export const sendLogoutRequest = () => async (dispatch) => {
+  let response = await authAPI.sendLogoutRequest();
+  if (response.resultCode === 0) {
+    dispatch(unsetUserData());
+  }
 };
 
-export const sendCheckRequest = () => {
-  return (dispatch) => {
-    return authAPI.sendCheckRequest().then((response) => {
-      if (response.resultCode === 0) {
-        dispatch(setUserData(response.data));
-      }
-    });
-  };
+export const sendCheckRequest = () => async (dispatch) => {
+  let response = await authAPI.sendCheckRequest();
+  if (response.resultCode === 0) {
+    dispatch(setUserData(response.data));
+  }
 };
 
 export default authReducer;
