@@ -4,25 +4,25 @@ import { sendLoginRequest } from "../../reducers/authReducer";
 import { Redirect } from "react-router-dom";
 import LoginForm from "../LoginForm";
 
-function LoginContainer(props) {
+function LoginContainer({ errorMessage, isLogin, sendLoginRequest }) {
   const handleSubmit = (data) => {
-    props.sendLoginRequest(data);
+    sendLoginRequest(data);
   };
 
   return (
     <div>
       <h3>Login form</h3>
-      {props.isLogin ? (
+      {isLogin ? (
         <Redirect to="/profile/my-profile" />
       ) : (
-        <LoginForm onSubmit={handleSubmit} />
+        <LoginForm errorMessage={errorMessage} onSubmit={handleSubmit} />
       )}
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { isLogin: state.auth.isLogin };
+  return { isLogin: state.auth.isLogin, errorMessage: state.auth.message };
 };
 
 export default connect(mapStateToProps, { sendLoginRequest })(LoginContainer);

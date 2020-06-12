@@ -5,9 +5,9 @@ import { required } from "../../utils/validators";
 
 import styles from "./index.module.scss";
 
-function LoginForm(props) {
+function LoginForm({ error, handleSubmit, errorMessage }) {
   return (
-    <form className={styles.container} onSubmit={props.handleSubmit}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <div className={styles.item}>
         <Field
           placeholder="Email"
@@ -35,7 +35,9 @@ function LoginForm(props) {
         />
         <span>Remember me</span>
       </label>
-      <p className={styles.error}>{props.error}</p>
+      <p className={styles.error}>
+        {error} <br /> {errorMessage}
+      </p>
       <div className={styles.item}>
         <button type="submit">Login</button>
       </div>

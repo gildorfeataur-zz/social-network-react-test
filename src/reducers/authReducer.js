@@ -2,12 +2,14 @@ import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "AUTH/SET_USER_DATA";
 const UNSET_USER_DATA = "AUTH/UNSET_USER_DATA";
+const SET_ERROR_MESSAGE = "AUTH/SET_ERROR_MESSAGE";
 
 let initialState = {
   id: null,
   email: null,
   login: null,
   isLogin: false,
+  message: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -30,6 +32,13 @@ const authReducer = (state = initialState, action) => {
       };
     }
 
+    case SET_ERROR_MESSAGE: {
+      return {
+        ...state,
+        message: action.data,
+      };
+    }
+
     default:
       return state;
   }
@@ -45,12 +54,19 @@ const unsetUserData = (data) => ({
   data,
 });
 
+const setErrorMessage = (data) => ({
+  type: SET_ERROR_MESSAGE,
+  data,
+});
+
 // THUNKs
 
 export const sendLoginRequest = (credentials) => async (dispatch) => {
   let response = await authAPI.sendLoginRequest(credentials);
   if (response.resultCode === 0) {
     dispatch(sendCheckRequest());
+  } else {
+    dispatch(setErrorMessage(response.messages[0]));
   }
 };
 

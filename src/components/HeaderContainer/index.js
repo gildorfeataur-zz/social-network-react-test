@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import { sendLogoutRequest } from "../../reducers/authReducer";
 import { Redirect } from "react-router-dom";
 
-function HeaderContainer(props) {
+function HeaderContainer({ isLogin, sendLogoutRequest, ...props }) {
   const handleLogout = () => {
-    props.sendLogoutRequest();
+    sendLogoutRequest();
   };
 
-  return props.isLogin ? (
-    <Header {...props} handleLogout={handleLogout} />
+  return isLogin ? (
+    <Header isLogin={isLogin} handleLogout={handleLogout} {...props} />
   ) : (
     <Redirect to="/login" />
   );

@@ -7,9 +7,9 @@ import styles from "./index.module.scss";
 
 const maxLength20 = maxLengthCreator(20);
 
-function MyProfilePostsForm(props) {
+function MyProfilePostsForm({ handleSubmit }) {
   return (
-    <form onSubmit={props.handleSubmit} className={styles.container}>
+    <form onSubmit={handleSubmit} className={styles.container}>
       <Field
         textarea
         component={FormField}
