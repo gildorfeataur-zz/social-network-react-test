@@ -2,8 +2,9 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { initApp } from "./reducers/appReducer";
 import { compose } from "redux";
-import { withRouter, Switch } from "react-router-dom";
-import { connect } from "react-redux";
+import { BrowserRouter, withRouter, Switch } from "react-router-dom";
+import { connect, Provider } from "react-redux";
+import store from "./reducers/reduxStore";
 import DialogPage from "./pages/DialogPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyProfilePage from "./pages/MyProfilePage";
@@ -13,7 +14,7 @@ import UsersPage from "./pages/UsersPage";
 import "./app.scss";
 import Preloader from "./components/Preloader";
 
-class App extends React.Component {
+class AppView extends React.Component {
   componentDidMount() {
     this.props.initApp();
   }
@@ -43,9 +44,21 @@ const mapStateToProps = (state) => {
   return { init: state.app.init };
 };
 
-export default compose(
+const AppContainer = compose(
   withRouter,
   connect(mapStateToProps, {
     initApp,
   })
-)(App);
+)(AppView);
+
+function App() {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppContainer />
+      </BrowserRouter>
+    </Provider>
+  );
+}
+
+export default App;
