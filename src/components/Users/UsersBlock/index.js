@@ -1,14 +1,15 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import avatar from "./../../../images/avatar-default.png";
 
 import styles from "./index.module.scss";
-import { NavLink } from "react-router-dom";
 
 function UsersBlock({ user, changeFollowing, isLoadingStack }) {
   return (
     <div className={styles.container}>
       <NavLink to={"profile/" + user.id}>
         <div className={styles.avatar}>
-          <img src={user.photos.small} alt="user-avatar" />
+          <img src={user.photos.small || avatar} alt="user-avatar" />
         </div>
       </NavLink>
       <div className={styles.content}>

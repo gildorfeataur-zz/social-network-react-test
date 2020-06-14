@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./index.module.scss";
 
-function MyProfileStatus({ myProfileData, userStatus, updateStatus }) {
+function MyProfileStatus({ myAuthData, userStatus, updateStatus }) {
   const [editable, setEditable] = React.useState(false);
   const [status, setStatus] = React.useState();
 
@@ -10,7 +10,7 @@ function MyProfileStatus({ myProfileData, userStatus, updateStatus }) {
     setEditable(!editable);
     setStatus(userStatus);
     if (status !== userStatus && status !== undefined) {
-      updateStatus(myProfileData.id, status);
+      updateStatus(myAuthData.id, status);
     }
   }
 

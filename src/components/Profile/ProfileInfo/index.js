@@ -4,21 +4,24 @@ import avatar from "./../../../images/avatar-default.png";
 
 import styles from "./index.module.scss";
 
-function ProfileInfo({ profile, myProfileData, status }) {
-  if (myProfileData) {
+function ProfileInfo({ profile, myAuthData, status, onAvatarChange }) {
+  if (myAuthData) {
     return (
       <React.Fragment>
         {profile ? (
           <div className={styles.container}>
             <img
-              src={avatar}
+              src={profile.photos.large || avatar}
               alt="profile-header-img"
               className={styles.avatar}
             />
             <section>
+              <input type="file" onChange={onAvatarChange} />
+            </section>
+            <section>
               <h3>Information</h3>
-              <p>Name: {myProfileData.login}</p>
-              <p>ID: {myProfileData.id}</p>
+              <p>Name: {profile.fullName}</p>
+              <p>ID: {profile.userId}</p>
             </section>
           </div>
         ) : (
@@ -32,14 +35,15 @@ function ProfileInfo({ profile, myProfileData, status }) {
         {profile ? (
           <div className={styles.container}>
             <img
-              src={profile.photos.large}
+              src={profile.photos.large || avatar}
               alt="profile-header-img"
               className={styles.avatar}
             />
             <section>
-              <p>Information</p>
+              <b>Information</b>
               <p>Name: {profile.fullName}</p>
               <p>ID: {profile.userId}</p>
+              <p>About me: {profile.aboutMe}</p>
             </section>
             <section>
               <p>Status: {status}</p>

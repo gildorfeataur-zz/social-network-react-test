@@ -54,6 +54,17 @@ export const profileAPI = {
       status: status,
     });
   },
+
+  uploadAvatar(file) {
+    let formData = new FormData();
+    formData.append("image", file);
+
+    return userCredentials.put(`/profile/photo`, formData, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export const authAPI = {

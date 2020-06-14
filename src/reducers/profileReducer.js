@@ -3,6 +3,7 @@ import { userAPI, profileAPI } from "../api/api";
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATUS";
+const SET_USER_PHOTO = "PROFILE/SET_USER_PHOTO";
 
 let initialState = {
   posts: [
@@ -44,6 +45,16 @@ const profileReducer = (state = initialState, action) => {
       };
     }
 
+    case SET_USER_PHOTO: {
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photos: action.photos,
+        },
+      };
+    }
+
     default:
       return state;
   }
@@ -64,6 +75,11 @@ export const setUserStatus = (status) => ({
   status,
 });
 
+export const setUserPhoto = (photos) => ({
+  type: SET_USER_PHOTO,
+  photos,
+});
+
 // THUNKs
 
 export const getUserProfile = (userId) => async (dispatch) => {
@@ -81,6 +97,13 @@ export const updateStatus = (userId, status) => async (dispatch) => {
   if (response.data.resultCode === 0) {
     let response = await profileAPI.getStatus(userId);
     dispatch(setUserStatus(response));
+  }
+};
+
+export const uploadAvatar = (file) => async (dispatch) => {
+  let response = await profileAPI.uploadAvatar(file);
+  if (response.data.resultCode === 0) {
+    dispatch(setUserPhoto(response.data.data.photos));
   }
 };
 

@@ -11,20 +11,23 @@ import ProfileInfo from "./../ProfileInfo";
 import withLoginRedirect from "../../../hoc/withLoginRedirect";
 import { compose } from "redux";
 
-class ProfileContainer extends React.Component {
-  componentDidMount() {
-    let userId = this.props.match.params.userId;
-    this.props.getUserProfile(userId);
-    this.props.getUserStatus(userId);
-  }
+function ProfileContainer({
+  profile,
+  getUserProfile,
+  getUserStatus,
+  ...props
+}) {
+  React.useState(() => {
+    let userId = props.match.params.userId;
+    getUserProfile(userId);
+    getUserStatus(userId);
+  }, []);
 
-  render() {
-    return (
-      <React.Fragment>
-        <ProfileInfo profile={this.props.profile} {...this.props} />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <ProfileInfo profile={profile} {...props} />
+    </React.Fragment>
+  );
 }
 
 const mapStateToProps = (state) => {
