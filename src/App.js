@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route } from "react-router-dom";
 import { initApp } from "./reducers/appReducer";
 import { compose } from "redux";
@@ -9,10 +9,11 @@ import DialogPage from "./pages/DialogPage";
 import ProfilePage from "./pages/ProfilePage";
 import MyProfilePage from "./pages/MyProfilePage";
 import LoginPage from "./pages/LoginPage";
-import UsersPage from "./pages/UsersPage";
+import Preloader from "./components/Preloader";
 
 import "./app.scss";
-import Preloader from "./components/Preloader";
+
+const UsersPage = React.lazy(() => import("./pages/UsersPage"));
 
 class AppView extends React.Component {
   componentDidMount() {
@@ -34,7 +35,15 @@ class AppView extends React.Component {
         />
         <Route path="/profile/:userId" render={() => <ProfilePage />} />
         <Route path="/dialogs" render={() => <DialogPage />} />
-        <Route path="/users" render={() => <UsersPage />} />
+
+        <Route
+          path="/users"
+          render={() => (
+            <Suspense fallback={<span>Loading Users...</span>}>
+              <UsersPage />
+            </Suspense>
+          )}
+        />
       </Switch>
     );
   }
