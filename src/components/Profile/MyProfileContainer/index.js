@@ -14,6 +14,7 @@ import { withRouter } from "react-router-dom";
 import MyProfileStatus from "../MyProfileStatus";
 import withLoginRedirect from "../../../hoc/withLoginRedirect";
 import { compose } from "redux";
+import { reset } from "redux-form";
 import MyProfilePostsForm from "../MyProfilePostsForm";
 
 class MyProfileContainer extends React.Component {
@@ -24,6 +25,7 @@ class MyProfileContainer extends React.Component {
 
   handleSendMessage = (data) => {
     this.props.addPost(data.newMessage);
+    this.props.dispatch(reset("myPosts"));
   };
 
   handleAvatarChange = (e) => {
@@ -60,7 +62,6 @@ let mapStateToProps = (state) => {
     data: state.profilePage,
     auth: state.auth,
     status: state.profilePage.status,
-    // login: state.auth.login,
   };
 };
 

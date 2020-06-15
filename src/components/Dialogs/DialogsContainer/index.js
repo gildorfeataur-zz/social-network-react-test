@@ -1,24 +1,37 @@
+import React from "react";
 import { connect } from "react-redux";
-import { addMessageCreator } from "../../../reducers/messagesReducer";
+import { addMessage } from "../../../reducers/messagesReducer";
 import DialogsMessages from "../DialogsMessages";
 import withLoginRedirect from "../../../hoc/withLoginRedirect";
 import { compose } from "redux";
+import DialogsNav from "../DialogsNav";
+import DialogsReduxForm from "../DialogsForm";
+import { reset } from "redux-form";
+
+function DialogsContainer({ messages, addMessage, dispatch }) {
+  const handleSendMessage = (data) => {
+    addMessage(data.newMessage);
+    dispatch(reset("dialogsMessage"));
+  };
+
+  return (
+    <React.Fragment>
+      <DialogsNav />
+
+      <DialogsMessages messages={messages} />
+
+      <DialogsReduxForm onSubmit={handleSendMessage} />
+    </React.Fragment>
+  );
+}
 
 let mapStateToProps = (state) => {
-  return { data: state.dialogsPage };
-};
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    handleSendMessage: (data) => {
-      console.log(data);
-
-      dispatch(addMessageCreator(data.newMessage));
-    },
-  };
+  return { messages: state.dialogsPage.messages };
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, {
+    addMessage,
+  }),
   withLoginRedirect
-)(DialogsMessages);
+)(DialogsContainer);

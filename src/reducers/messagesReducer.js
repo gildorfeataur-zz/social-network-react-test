@@ -32,7 +32,7 @@ const messagesReducer = (state = initialState, action) => {
   }
 };
 
-export const addMessageCreator = (message) => ({
+export const addMessage = (message) => ({
   type: SEND_MESSAGE,
   message,
 });

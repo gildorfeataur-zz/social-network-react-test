@@ -1,0 +1,21 @@
+@import "src/styles/init";
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px 10px;
+}
+
+.textarea {
+  display: flex;
+
+  textarea {
+    width: 300px;
+    margin-right: 20px;
+  }
+}
