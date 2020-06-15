@@ -7,9 +7,9 @@ import { required, maxLengthCreator } from "../../../utils/validators";
 
 const maxLength20 = maxLengthCreator(20);
 
-function DialogsForm({ ...props }) {
+function DialogsForm({ handleSubmit }) {
   return (
-    <form className={styles.textarea} onSubmit={props.handleSubmit}>
+    <form className={styles.textarea} onSubmit={handleSubmit}>
       <Field
         textarea
         component={FormField}

@@ -14,10 +14,10 @@ function Header({ login, isLogin, handleLogout }) {
       </nav>
       <aside className={styles.aside}>
         {isLogin ? (
-          <div>
+          <React.Fragment>
             <span>{login}</span>
             <button onClick={handleLogout}>Logout</button>
-          </div>
+          </React.Fragment>
         ) : (
           <NavLink to={"/login"}>Login</NavLink>
         )}
