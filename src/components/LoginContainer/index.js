@@ -4,7 +4,12 @@ import { sendLoginRequest } from "../../reducers/authReducer";
 import { Redirect } from "react-router-dom";
 import LoginForm from "../LoginForm";
 
-function LoginContainer({ errorMessage, isLogin, sendLoginRequest }) {
+function LoginContainer({
+  errorMessage,
+  isLogin,
+  sendLoginRequest,
+  captchaUrl,
+}) {
   const handleSubmit = (data) => {
     sendLoginRequest(data);
   };
@@ -15,14 +20,22 @@ function LoginContainer({ errorMessage, isLogin, sendLoginRequest }) {
       {isLogin ? (
         <Redirect to="/profile/my-profile" />
       ) : (
-        <LoginForm errorMessage={errorMessage} onSubmit={handleSubmit} />
+        <LoginForm
+          errorMessage={errorMessage}
+          onSubmit={handleSubmit}
+          captchaUrl={captchaUrl}
+        />
       )}
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  return { isLogin: state.auth.isLogin, errorMessage: state.auth.message };
+  return {
+    isLogin: state.auth.isLogin,
+    errorMessage: state.auth.message,
+    captchaUrl: state.auth.captchaUrl,
+  };
 };
 
 export default connect(mapStateToProps, { sendLoginRequest })(LoginContainer);

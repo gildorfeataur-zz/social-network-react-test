@@ -85,4 +85,10 @@ export const authAPI = {
       return response.data;
     });
   },
+
+  getCaptchaUrl() {
+    return userCredentials.get(`security/get-captcha-url`).then((response) => {
+      return response.data;
+    });
+  },
 };
