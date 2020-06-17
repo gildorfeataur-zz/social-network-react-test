@@ -3,7 +3,7 @@ import ProfilePost from "../ProfilePost";
 
 import styles from "./index.module.scss";
 
-const ProfilePosts = React.memo(({ posts }) => {
+function ProfilePosts({ posts }) {
   return (
     <div className={styles.container}>
       <h3>My posts</h3>
@@ -18,6 +18,6 @@ const ProfilePosts = React.memo(({ posts }) => {
       </section>
     </div>
   );
-});
+}
 
 export default ProfilePosts;

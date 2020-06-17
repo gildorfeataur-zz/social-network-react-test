@@ -15,38 +15,36 @@ import "./app.scss";
 
 const UsersPage = React.lazy(() => import("./pages/UsersPage"));
 
-class AppView extends React.Component {
-  componentDidMount() {
-    this.props.initApp();
-  }
+function AppView({ initApp, init }) {
+  React.useEffect(() => {
+    initApp();
+  }, [initApp]);
 
-  render() {
-    if (!this.props.init) {
-      return <Preloader />;
-    }
-    return (
-      <Switch>
-        <Route path="/" exact render={() => <LoginPage />} />
-        <Route path="/login" render={() => <LoginPage />} />
-        <Route
-          path="/profile/my-profile"
-          exact
-          render={() => <MyProfilePage />}
-        />
-        <Route path="/profile/:userId" render={() => <ProfilePage />} />
-        <Route path="/dialogs" render={() => <DialogPage />} />
-
-        <Route
-          path="/users"
-          render={() => (
-            <Suspense fallback={<span>Loading Users...</span>}>
-              <UsersPage />
-            </Suspense>
-          )}
-        />
-      </Switch>
-    );
+  if (!init) {
+    return <Preloader />;
   }
+  return (
+    <Switch>
+      <Route path="/" exact render={() => <LoginPage />} />
+      <Route path="/login" render={() => <LoginPage />} />
+      <Route
+        path="/profile/my-profile"
+        exact
+        render={() => <MyProfilePage />}
+      />
+      <Route path="/profile/:userId" render={() => <ProfilePage />} />
+      <Route path="/dialogs" render={() => <DialogPage />} />
+
+      <Route
+        path="/users"
+        render={() => (
+          <Suspense fallback={<span>Loading Users...</span>}>
+            <UsersPage />
+          </Suspense>
+        )}
+      />
+    </Switch>
+  );
 }
 
 const mapStateToProps = (state) => {

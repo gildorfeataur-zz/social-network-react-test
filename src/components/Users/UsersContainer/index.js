@@ -10,31 +10,26 @@ import UsersList from "../UsersList";
 import { compose } from "redux";
 import withLoginRedirect from "../../../hoc/withLoginRedirect";
 
-class UsersContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUsers(
-      this.props.data.currentPage,
-      this.props.data.itemsPerPage
-    );
-  }
+function UsersContainer({ data, getUsers, followUserToggle }) {
+  React.useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
-  handlePageChange = (page) => {
-    this.props.getUsers(page, this.props.data.itemsPerPage);
+  const handlePageChange = (page) => {
+    getUsers(page);
   };
 
-  handleChangeFollowing = (user) => {
-    this.props.followUserToggle(user);
+  const handleChangeFollowing = (user) => {
+    followUserToggle(user);
   };
 
-  render() {
-    return (
-      <UsersList
-        data={this.props.data}
-        changeFollowing={this.handleChangeFollowing}
-        changePage={this.handlePageChange}
-      />
-    );
-  }
+  return (
+    <UsersList
+      data={data}
+      changeFollowing={handleChangeFollowing}
+      changePage={handlePageChange}
+    />
+  );
 }
 
 let mapStateToProps = (state) => {

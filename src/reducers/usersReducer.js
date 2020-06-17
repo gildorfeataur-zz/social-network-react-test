@@ -106,7 +106,7 @@ export const isLoadingIndicate = (userId, isLoading) => ({
 
 // THUNKs
 
-export const getUsers = (currentPage, itemsPerPage) => async (dispatch) => {
+export const getUsers = (currentPage = 1, itemsPerPage) => async (dispatch) => {
   dispatch(isFetchingIndicate(true));
 
   let response = await userAPI.getUsers(currentPage, itemsPerPage);

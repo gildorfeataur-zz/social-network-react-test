@@ -2,13 +2,13 @@ import React from "react";
 
 import styles from "./index.module.scss";
 
-const FormField = ({
+function FormField({
   type,
   textarea,
   input,
   placeholder,
   meta: { touched, error },
-}) => {
+}) {
   return (
     <div className={styles.container}>
       {textarea ? (
@@ -19,6 +19,6 @@ const FormField = ({
       {touched && error && <span className={styles.error}>{error}</span>}
     </div>
   );
-};
+}
 
 export default FormField;
