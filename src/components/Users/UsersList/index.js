@@ -25,6 +25,13 @@ function UsersList({ data, changeFollowing, changePage }) {
     }
   }
 
+  React.useEffect(() => {
+    if (data.currentPage === 1) {
+      setStart(1);
+      setButtonsPerPage(10);
+    }
+  }, [data.currentPage, totalPages]);
+
   return (
     <section className={styles.container}>
       <h2>Users list</h2>
@@ -68,15 +75,17 @@ function UsersList({ data, changeFollowing, changePage }) {
             );
           })}
 
-          <button
-            key={totalPages}
-            className={classNames(styles.lastBtn, {
-              [styles.isActive]: data.currentPage === totalPages,
-            })}
-            onClick={() => changePage(totalPages)}
-          >
-            {totalPages}
-          </button>
+          {data.currentPage !== totalPages ? (
+            <button
+              key={totalPages}
+              className={classNames(styles.lastBtn, {
+                [styles.isActive]: data.currentPage === totalPages,
+              })}
+              onClick={() => changePage(totalPages)}
+            >
+              {totalPages}
+            </button>
+          ) : null}
         </div>
 
         <button
