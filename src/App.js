@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage";
 import MyProfilePage from "./pages/MyProfilePage";
 import LoginPage from "./pages/LoginPage";
 import Preloader from "./components/Preloader";
+import NotFoundPage from "./pages/NotFoundPage";
 
 import "./app.scss";
 
@@ -34,7 +35,6 @@ function AppView({ initApp, init }) {
       />
       <Route path="/profile/:userId" render={() => <ProfilePage />} />
       <Route path="/dialogs" render={() => <DialogPage />} />
-
       <Route
         path="/users"
         render={() => (
@@ -43,6 +43,7 @@ function AppView({ initApp, init }) {
           </Suspense>
         )}
       />
+      <Route path="*" render={() => <NotFoundPage />} />
     </Switch>
   );
 }
