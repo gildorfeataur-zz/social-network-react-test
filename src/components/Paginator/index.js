@@ -7,11 +7,11 @@ function Paginator({ currentPage, changePage, usersTotalCount, itemsPerPage }) {
   let totalPages = Math.ceil(usersTotalCount / itemsPerPage);
   let buttons = [];
   const [start, setStart] = React.useState(1);
-  const [buttonsPerPage, setButtonsPerPage] = React.useState(10);
+  const [buttonsPerPage, setButtonsPerPage] = React.useState(itemsPerPage);
 
   if (currentPage === buttonsPerPage) {
     setStart(buttonsPerPage);
-    setButtonsPerPage(buttonsPerPage + 10);
+    setButtonsPerPage(buttonsPerPage + itemsPerPage);
   }
 
   for (let index = start; index <= totalPages; index++) {
@@ -26,9 +26,9 @@ function Paginator({ currentPage, changePage, usersTotalCount, itemsPerPage }) {
   React.useEffect(() => {
     if (currentPage === 1) {
       setStart(1);
-      setButtonsPerPage(10);
+      setButtonsPerPage(itemsPerPage);
     }
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages, itemsPerPage]);
 
   return (
     <div className={styles.paginator}>
@@ -44,7 +44,7 @@ function Paginator({ currentPage, changePage, usersTotalCount, itemsPerPage }) {
       </button>
 
       <div className={styles.paginatorPages}>
-        {currentPage >= 10 ? (
+        {currentPage >= itemsPerPage ? (
           <button
             key={1}
             className={classNames(styles.firstBtn, {
