@@ -1,0 +1,102 @@
+@import "src/styles/init";
+
+.paginator {
+  display: flex;
+  padding-bottom: 20px;
+  overflow-x: hidden;
+
+  button {
+    margin-right: 10px;
+
+    &.isActive {
+      font-weight: 700;
+      background-color: #aeaeae;
+    }
+
+    &.firstBtn {
+      position: relative;
+      margin-right: 30px;
+      &::after {
+        @include absolute(0, auto, 0, 30px);
+        content: "...";
+
+        font-weight: 700;
+      }
+    }
+
+    &.lastBtn {
+      position: relative;
+      margin-left: 30px;
+      &::after {
+        @include absolute(0, auto, 0, -30px);
+        content: "...";
+
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.list {
+  position: relative;
+  display: block;
+  opacity: 1;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 30px;
+
+  &Btn {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 4px;
+    outline: 0;
+    border: 1px solid #333;
+    cursor: pointer;
+    background-color: #2196f3;
+    color: #fff;
+    padding: 0 12px;
+    height: 34px;
+
+    &:disabled {
+      background-color: #aeaeae;
+      color: #333;
+    }
+  }
+
+  &Page {
+    position: relative;
+    display: inline-flex;
+    margin: 0 4px;
+    outline: 0;
+    border: 1px solid #333;
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:last-of-type {
+      margin-left: 32px;
+
+      &::before {
+        content: "...";
+        position: absolute;
+        left: -27px;
+        top: 0;
+        bottom: 0;
+        right: auto;
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    &isActive {
+      background: #999;
+    }
+  }
+
+  &Pages {
+    display: flex;
+  }
+}
